@@ -17,8 +17,8 @@ public struct FlashMiddleware: Middleware, ServiceType {
         try req.decodeFlashDataFromSession()
         return try next
             .respond(to: req)
-            .try { resp in
-                try req.encodeFlashDataToSession(from: resp)
+            .do { resp in
+                try? req.encodeFlashDataToSession(from: resp)
             }
     }
 }
